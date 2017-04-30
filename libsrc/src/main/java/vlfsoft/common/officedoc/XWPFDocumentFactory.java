@@ -5,6 +5,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import vlfsoft.common.annotations.design.patterns.gof.CreationalPattern;
 
@@ -12,32 +16,32 @@ public class XWPFDocumentFactory {
 
     private final static String BLANK_FILE = "Blank.docx";
 
-    private File mFile;
+    private final @Nonnull File mFile;
 
-    public XWPFDocumentFactory() {
-        mFile = new File(BLANK_FILE);
-    }
-
-    public XWPFDocumentFactory(String aPathname) {
-        mFile = new File(aPathname);
-    }
-
-    public XWPFDocumentFactory(File aFile) {
+    public XWPFDocumentFactory(final @Nonnull File aFile) {
         mFile = aFile;
     }
 
-    @CreationalPattern.FactoryMethod
-    public XWPFDocument getInstance() throws IOException {
+    public XWPFDocumentFactory(final @Nonnull String aPathname) {
+        this(new File(aPathname));
+    }
+
+    public XWPFDocumentFactory() {
+        this(BLANK_FILE);
+    }
+
+    @CreationalPattern.SimpleFactory
+    public @Nonnull XWPFDocument getInstance() throws IOException {
         try (FileInputStream in = new FileInputStream(mFile)) {
             return new XWPFDocument(in);
         }
     }
 
-    public static XWPFDocument getInstance(File aFile) throws IOException {
+    public static @Nonnull XWPFDocument getInstance(final @Nonnull File aFile) throws IOException {
         return new XWPFDocumentFactory(aFile).getInstance();
     }
 
-    public static XWPFDocument getInstance(String aPathname) throws IOException {
+    public static @Nonnull XWPFDocument getInstance(final @Nonnull String aPathname) throws IOException {
         return new XWPFDocumentFactory(aPathname).getInstance();
     }
 }

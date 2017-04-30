@@ -1,20 +1,41 @@
 package vlfsoft.common.officedoc;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Optional;
+
+import javax.annotation.Nonnull;
+
+import vlfsoft.common.annotations.design.patterns.gof.CreationalPattern;
 
 public class XSSFDocumentFactory {
-    private XSSFDocumentFactory() {
+
+    private Optional<File> mFile;
+
+    @CreationalPattern.SimpleFactory
+    public XSSFWorkbook getInstance() throws IOException {
+        if (mFile.isPresent()) {
+            try (FileInputStream in = new FileInputStream(mFile.get())) {
+                return new XSSFWorkbook(in);
+            }
+        }else {
+            return new XSSFWorkbook();
+        }
     }
 
-    public static XSSFWorkbook getInstance(String aPathname) throws IOException {
-        try (FileInputStream in = new FileInputStream(new File(aPathname))) {
-            return new XSSFWorkbook(in);
-        }
+    public XSSFDocumentFactory(Optional<File> aFile) {
+        this.mFile = aFile;
+    }
+
+    public XSSFDocumentFactory() {
+        this(Optional.empty());
+    }
+
+    public XSSFDocumentFactory(final @Nonnull String aPathname) {
+        this(Optional.of(new File(aPathname)));
     }
 
 }

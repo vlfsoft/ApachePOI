@@ -9,36 +9,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class XWPFDocumentWriter {
+final public class XWPFDocumentWriter {
     private XWPFDocumentWriter() {
     }
 
-    public static void toDocx(XWPFDocument aDocument, String aPathnameDocx) throws IOException {
-        toDocx(aDocument, aPathnameDocx);
+    public static void toDocx(XWPFDocument aDocument, String aPathname) throws IOException {
+        toDocx(aDocument, new File(aPathname));
     }
 
-    public static void toDocx(XWPFDocument aDocument, File aFileDocx) throws IOException {
-        try (OutputStream out = new FileOutputStream(aFileDocx)) {
+    public static void toDocx(XWPFDocument aDocument, File aFile) throws IOException {
+        try (OutputStream out = new FileOutputStream(aFile)) {
             aDocument.write(out);
         }
     }
 
-    public static void toPdf(XWPFDocument aDocument, File aFilePdf) throws IOException {
-        try (OutputStream out = new FileOutputStream(aFilePdf)) {
+    public static void toPdf(XWPFDocument aDocument, File aFile) throws IOException {
+        try (OutputStream out = new FileOutputStream(aFile)) {
             PdfConverter.getInstance().convert(aDocument, out, PdfOptions.create());
         }
     }
 
-    public static void toPdf(XWPFDocument aDocument, String aPathnamePdf) throws IOException {
-        toPdf(aDocument, new File(aPathnamePdf));
+    public static void toPdf(XWPFDocument aDocument, String aPathname) throws IOException {
+        toPdf(aDocument, new File(aPathname));
     }
 
-    public static void toPdf(File aFileDocx, File aFilePdf) throws IOException {
-        toPdf(XWPFDocumentFactory.getInstance(aFileDocx), aFilePdf);
+    public static void toPdf(File aFileDocx, File aFile) throws IOException {
+        toPdf(XWPFDocumentFactory.getInstance(aFileDocx), aFile);
     }
 
-    public static void toPdf(String aPathnameDocx, String aPathnamePdf) throws IOException {
-        toPdf(new File(aPathnameDocx), new File(aPathnamePdf));
+    public static void toPdf(String aPathnameDocx, String aPathname) throws IOException {
+        toPdf(new File(aPathnameDocx), new File(aPathname));
     }
 
 }
