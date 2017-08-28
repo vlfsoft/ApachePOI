@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
-import vlfsoft.common.annotations.design.patterns.gof.CreationalPattern;
+import vlfsoft.common.annotations.design.patterns.CreationalPattern;
 
 public class XSSFDocumentFactory {
 

@@ -68,7 +68,7 @@ public final class XWPFDocumentUtil {
      */
     public static void appendExternalHyperlink(String url, String text, XWPFParagraph paragraph) {
 
-        //Add the link as External relationship
+        // Add the link as External relationship
         String id = paragraph.getDocument().getPackagePart().addExternalRelationship(url, XWPFRelation.HYPERLINK.getRelation()).getId();
 
         //Append the link and bind it to the relationship

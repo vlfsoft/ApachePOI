@@ -10,8 +10,11 @@ import java.util.Optional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import vlfsoft.common.annotations.design.patterns.gof.CreationalPattern;
+import vlfsoft.common.annotations.design.patterns.CreationalPattern;
 
+/**
+ * The service provides methods {@link #getInstance()} to create XWPFDocument using existing docx files.
+ */
 public class XWPFDocumentFactory {
 
     private final static String BLANK_FILE = "Blank.docx";
