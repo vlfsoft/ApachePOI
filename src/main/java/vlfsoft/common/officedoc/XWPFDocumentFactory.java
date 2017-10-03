@@ -33,7 +33,7 @@ public class XWPFDocumentFactory {
         this(BLANK_FILE);
     }
 
-    @CreationalPattern.SimpleFactory
+    @CreationalPattern.Factory.SimpleFactory
     public @Nonnull XWPFDocument getInstance() throws IOException {
         try (FileInputStream in = new FileInputStream(mFile)) {
             return new XWPFDocument(in);
