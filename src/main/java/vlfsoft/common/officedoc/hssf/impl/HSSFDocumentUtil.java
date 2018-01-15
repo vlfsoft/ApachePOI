@@ -14,8 +14,8 @@ import vlfsoft.common.officedoc.ColorRGB;
 import vlfsoft.common.util.DateTimeUtilsExtKt;
 import vlfsoft.common.util.DatetimeUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.time.LocalDate;
 import java.util.Locale;
 
@@ -25,14 +25,14 @@ public final class HSSFDocumentUtil {
     private HSSFDocumentUtil() {
     }
 
-    public static int getRowEnd(final @Nonnull HSSFSheet aXlsSheet) {
+    public static int getRowEnd(final @NotNull HSSFSheet aXlsSheet) {
         int rowEnd = aXlsSheet.getLastRowNum();
         if (rowEnd == 0) rowEnd = aXlsSheet.getPhysicalNumberOfRows() - 1;
         return rowEnd;
     }
 
     public static @Nullable
-    String getStringCellValue(final @Nonnull Cell aCell) {
+    String getStringCellValue(final @NotNull Cell aCell) {
         // Ignore depreciation warning
         // Cell with Phone can be NUMERIC, if phone number is without '+'.
         switch (aCell.getCellTypeEnum()) {
@@ -40,7 +40,7 @@ public final class HSSFDocumentUtil {
                 // https://stackoverflow.com/questions/3148535/how-to-read-excel-cell-having-date-with-apache-poi
                 if (HSSFDateUtil.isCellDateFormatted(aCell)) {
                     // 42942 - 26.07.2017
-                    return DateTimeUtilsExtKt.from(asLocalDate(aCell.getDateCellValue()), DateTimeUtilsExtKt.ANSI_DATE_FORMAT);
+                    return DateTimeUtilsExtKt.toString(asLocalDate(aCell.getDateCellValue()), DateTimeUtilsExtKt.ANSI_DATE_FORMAT);
                 }else {
                     return String.valueOf((int) aCell.getNumericCellValue());
                 }
@@ -54,7 +54,7 @@ public final class HSSFDocumentUtil {
     /**
      * https://stackoverflow.com/questions/5794659/poi-how-do-i-set-cell-value-to-date-and-apply-default-excel-date-format
      */
-    public static void setDateValue(final @Nonnull HSSFWorkbook aWorkbook,  final @Nonnull Cell aCell, final @Nonnull LocalDate aDate, final @Nonnull String aFormat) {
+    public static void setDateValue(final @NotNull HSSFWorkbook aWorkbook,  final @NotNull Cell aCell, final @NotNull LocalDate aDate, final @NotNull String aFormat) {
         CellStyle cellStyle = aWorkbook.createCellStyle();
         CreationHelper createHelper = aWorkbook.getCreationHelper();
         cellStyle.setDataFormat(createHelper.createDataFormat().getFormat(aFormat));
@@ -88,11 +88,11 @@ public final class HSSFDocumentUtil {
 
     static
     public
-    @Nonnull
-    String getDataItem(final @Nonnull Row aXlsRow, int aCol,
-                       final @Nonnull String aDataItemName,
+    @NotNull
+    String getDataItem(final @NotNull Row aXlsRow, int aCol,
+                       final @NotNull String aDataItemName,
                        boolean aCheckEmpty,
-                       final @Nonnull AppException.ErrorCodeAdapterA aErrorCode) throws AppException {
+                       final @NotNull AppException.ErrorCodeAdapterA aErrorCode) throws AppException {
         Cell cell = aXlsRow.getCell(aCol);
 
         if (cell == null) {

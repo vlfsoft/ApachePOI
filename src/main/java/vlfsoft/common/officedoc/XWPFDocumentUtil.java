@@ -32,8 +32,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public final class XWPFDocumentUtil {
     private XWPFDocumentUtil() {
@@ -127,9 +127,9 @@ public final class XWPFDocumentUtil {
 
     }
 
-    public static XWPFParagraph addTextWithStyleId(@Nonnull final XWPFDocument aDocument,
-                                                   @Nullable final String aStyleId,
-                                                   @Nonnull final String aText,
+    public static XWPFParagraph addTextWithStyleId(@NotNull final XWPFDocument aDocument,
+                                                   @NotNull final String aStyleId,
+                                                   @NotNull final String aText,
                                                    boolean aAddCarriageReturn) {
         XWPFParagraph paragraph = aDocument.createParagraph();
 
@@ -143,20 +143,20 @@ public final class XWPFDocumentUtil {
         return paragraph;
     }
 
-    public static XWPFParagraph addTextWithStyleId(@Nonnull final XWPFDocument aDocument,
-                                                   @Nullable final String aStyleId,
-                                                   @Nonnull final String aText) {
+    public static XWPFParagraph addTextWithStyleId(@NotNull final XWPFDocument aDocument,
+                                                   @NotNull final String aStyleId,
+                                                   @NotNull final String aText) {
         return addTextWithStyleId(aDocument, aStyleId, aText, false);
     }
 
-    public static XWPFParagraph addText(@Nonnull final XWPFDocument aDocument,
-                                        @Nonnull final String aText,
+    public static XWPFParagraph addText(@NotNull final XWPFDocument aDocument,
+                                        @NotNull final String aText,
                                         boolean aAddCarriageReturn) {
         return addTextWithStyleId(aDocument, null, aText, aAddCarriageReturn);
     }
 
-    public static XWPFParagraph addText(@Nonnull final XWPFDocument aDocument,
-                                        @Nonnull final String aText) {
+    public static XWPFParagraph addText(@NotNull final XWPFDocument aDocument,
+                                        @NotNull final String aText) {
         return addText(aDocument, aText, true);
     }
 
@@ -184,7 +184,7 @@ public final class XWPFDocumentUtil {
     }
 
     /**
-     * See <a href="http://stackoverflow.com/questions/35419619/how-can-i-set-background-colour-of-a-run-a-word-in-line-or-a-paragraph-in-a-do">How can I set background colour of a run (a word in line or a paragraph) in a docx file by using Apache POI?</a>
+     * See <a href="http://stackoverflow.com/questions/35419619/how-can-i-set-background-colour-of-a-run-a-word-in-line-or-a-paragraph-in-a-do">How can I set background colour of a runAndCatch (a word in line or a paragraph) in a docx filemodified by using Apache POI?</a>
      */
     public static void setBackgroundColor(XWPFRun aRun, String aBackgroundColor) {
         CTShd cTShd = aRun.getCTR().addNewRPr().addNewShd();
@@ -206,7 +206,7 @@ public final class XWPFDocumentUtil {
      * See <a href="http://stackoverflow.com/questions/40345285/removing-an-xwpfparagraph-keeps-the-paragraph-symbol-for-it">http://stackoverflow.com/questions/40345285/removing-an-xwpfparagraph-keeps-the-paragraph-symbol-for-it</a>
      * @param aDocument -
      */
-    public static void removeAllParagraphs(@Nonnull final XWPFDocument aDocument) {
+    public static void removeAllParagraphs(@NotNull final XWPFDocument aDocument) {
         for (int pNumber = aDocument.getParagraphs().size() - 1; pNumber >= 0; pNumber--) {
             XWPFParagraph p = aDocument.getParagraphs().get(pNumber);
             int pPos = aDocument.getPosOfParagraph(p);

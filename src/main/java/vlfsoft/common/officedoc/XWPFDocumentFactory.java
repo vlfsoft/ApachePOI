@@ -5,12 +5,10 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Optional;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
 
-import vlfsoft.common.annotations.design.patterns.CreationalPattern;
+import vlfsoft.patterns.GOF;
 
 /**
  * The service provides methods {@link #getInstance()} to create XWPFDocument using existing docx files.
@@ -19,13 +17,13 @@ public class XWPFDocumentFactory {
 
     private final static String BLANK_FILE = "Blank.docx";
 
-    private final @Nonnull File mFile;
+    private final @NotNull File mFile;
 
-    public XWPFDocumentFactory(final @Nonnull File aFile) {
+    public XWPFDocumentFactory(final @NotNull File aFile) {
         mFile = aFile;
     }
 
-    public XWPFDocumentFactory(final @Nonnull String aPathname) {
+    public XWPFDocumentFactory(final @NotNull String aPathname) {
         this(new File(aPathname));
     }
 
@@ -33,18 +31,18 @@ public class XWPFDocumentFactory {
         this(BLANK_FILE);
     }
 
-    @CreationalPattern.Factory.SimpleFactory
-    public @Nonnull XWPFDocument getInstance() throws IOException {
+    @GOF.Factory.SimpleFactory
+    public @NotNull XWPFDocument getInstance() throws IOException {
         try (FileInputStream in = new FileInputStream(mFile)) {
             return new XWPFDocument(in);
         }
     }
 
-    public static @Nonnull XWPFDocument getInstance(final @Nonnull File aFile) throws IOException {
+    public static @NotNull XWPFDocument getInstance(final @NotNull File aFile) throws IOException {
         return new XWPFDocumentFactory(aFile).getInstance();
     }
 
-    public static @Nonnull XWPFDocument getInstance(final @Nonnull String aPathname) throws IOException {
+    public static @NotNull XWPFDocument getInstance(final @NotNull String aPathname) throws IOException {
         return new XWPFDocumentFactory(aPathname).getInstance();
     }
 }

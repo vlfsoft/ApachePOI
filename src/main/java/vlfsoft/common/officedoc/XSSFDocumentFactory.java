@@ -7,15 +7,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Optional;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
-import vlfsoft.common.annotations.design.patterns.CreationalPattern;
+import vlfsoft.patterns.GOF;
 
 public class XSSFDocumentFactory {
 
     private Optional<File> mFile;
 
-    @CreationalPattern.Factory.SimpleFactory
+    @GOF.Factory.SimpleFactory
     public XSSFWorkbook getInstance() throws IOException {
         if (mFile.isPresent()) {
             try (FileInputStream in = new FileInputStream(mFile.get())) {
@@ -34,7 +34,7 @@ public class XSSFDocumentFactory {
         this(Optional.empty());
     }
 
-    public XSSFDocumentFactory(final @Nonnull String aPathname) {
+    public XSSFDocumentFactory(final @NotNull String aPathname) {
         this(Optional.of(new File(aPathname)));
     }
 
