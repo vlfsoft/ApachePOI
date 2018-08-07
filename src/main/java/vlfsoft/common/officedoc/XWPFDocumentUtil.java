@@ -127,6 +127,12 @@ public final class XWPFDocumentUtil {
 
     }
 
+    public static void addPageBreak(@NotNull final XWPFDocument aDocument) {
+        XWPFParagraph paragraph = aDocument.createParagraph();
+        XWPFRun run = paragraph.createRun();
+        run.addBreak(BreakType.PAGE);
+    }
+
     public static XWPFParagraph addTextWithStyleId(@NotNull final XWPFDocument aDocument,
                                                    @NotNull final String aStyleId,
                                                    @NotNull final String aText,
@@ -172,7 +178,11 @@ public final class XWPFDocumentUtil {
 
     public static XWPFRun addPicture(XWPFRun aRun, int aPictureType, String aPictureFilename, int aWidth, int aHeight) throws InvalidFormatException, IOException {
         // http://stackoverflow.com/questions/26764889/how-to-insert-a-image-in-word-document-with-apache-poi
-        aRun.addPicture(new FileInputStream(aPictureFilename), aPictureType, aPictureFilename, Units.toEMU(aWidth), Units.toEMU(aHeight));
+
+        // 18.04.16 Changed from aRun.addPicture(new FileInputStream(aPictureFilename), aPictureType, aPictureFilename, Units.toEMU(aWidth), Units.toEMU(aHeight));
+        // to
+        aRun.addPicture(new FileInputStream(aPictureFilename), aPictureType, aPictureFilename, Units.pixelToEMU(aWidth), Units.pixelToEMU(aHeight));
+
         return aRun;
     }
 

@@ -15,7 +15,7 @@ public class XSSFDocumentFactory {
 
     private Optional<File> mFile;
 
-    @GOF.Factory.SimpleFactory
+    @GOF.SimpleFactory
     public XSSFWorkbook getInstance() throws IOException {
         if (mFile.isPresent()) {
             try (FileInputStream in = new FileInputStream(mFile.get())) {

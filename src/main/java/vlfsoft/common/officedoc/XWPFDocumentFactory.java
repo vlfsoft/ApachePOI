@@ -31,7 +31,7 @@ public class XWPFDocumentFactory {
         this(BLANK_FILE);
     }
 
-    @GOF.Factory.SimpleFactory
+    @GOF.SimpleFactory
     public @NotNull XWPFDocument getInstance() throws IOException {
         try (FileInputStream in = new FileInputStream(mFile)) {
             return new XWPFDocument(in);
